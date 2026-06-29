@@ -1,0 +1,44 @@
+---@meta
+--- locale.types.lua — shared LuaCATS definitions for the locale system.
+--- `---@meta`: annotations only, no runtime code (per project convention).
+
+--- Common ISO 639-1 language codes (optionally region-tagged, e.g. "en-US").
+--- The trailing `| string` keeps any other code valid while still offering these
+--- as autocomplete suggestions. Matches `Locale.Languages` (code -> native name).
+---@alias LocaleLanguage
+---| "en"    # English
+---| "fr"    # Français
+---| "de"    # Deutsch
+---| "es"    # Español
+---| "it"    # Italiano
+---| "pt"    # Português
+---| "pt-BR" # Português (Brasil)
+---| "ru"    # Русский
+---| "pl"    # Polski
+---| "tr"    # Türkçe
+---| "nl"    # Nederlands
+---| "sv"    # Svenska
+---| "da"    # Dansk
+---| "fi"    # Suomi
+---| "no"    # Norsk
+---| "cs"    # Čeština
+---| "hu"    # Magyar
+---| "ro"    # Română
+---| "el"    # Ελληνικά
+---| "uk"    # Українська
+---| "ja"    # 日本語
+---| "ko"    # 한국어
+---| "zh-CN" # 简体中文
+---| "zh-TW" # 繁體中文
+---| "ar"    # العربية
+---| "th"    # ไทย
+---| "vi"    # Tiếng Việt
+---| "id"    # Bahasa Indonesia
+---| string  # any other ISO 639-1 code
+
+--- A (possibly nested) translation table: key -> text, or key -> sub-table.
+--- e.g. `{ menu = { title = "Hi" }, welcome = "Hello, {name}!" }`.
+---@alias LocaleTranslations table<string, string|table>
+
+--- Interpolation values for `{name}` / `{1}` tokens.
+---@alias LocaleParams table<string|number, any>
