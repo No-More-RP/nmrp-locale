@@ -22,6 +22,9 @@ Add `nanos-locale` to your package `packages_requirements`:
 
 The global `Locale` is then available everywhere (shared Lua state between packages).
 
+> Ready-to-copy usage snippets live in [`examples/`](examples/) (per-script,
+> server-per-player, WebUI). They are not loaded or shipped — pure reference.
+
 ## Language model (important)
 
 The active language is **per-player and client-owned**. It cannot be chosen on the
