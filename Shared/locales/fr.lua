@@ -1,0 +1,41 @@
+--- fr.lua — French shared locale, registered into `Locale.SHARED`.
+--- Keep keys universal and prefixed (common.*, time.*); see locales/Index.lua.
+---@type LocaleTranslations
+return {
+    common = {
+        yes         = "Oui",
+        no          = "Non",
+        ok          = "OK",
+        cancel      = "Annuler",
+        confirm     = "Confirmer",
+        save        = "Enregistrer",
+        delete      = "Supprimer",
+        edit        = "Modifier",
+        remove      = "Retirer",
+        add         = "Ajouter",
+        create      = "Créer",
+        close       = "Fermer",
+        back        = "Retour",
+        next        = "Suivant",
+        previous    = "Précédent",
+        search      = "Rechercher",
+        loading     = "Chargement...",
+        settings    = "Paramètres",
+        error       = "Erreur",
+        success     = "Succès",
+        warning     = "Avertissement",
+        info        = "Information",
+        enabled     = "Activé",
+        disabled    = "Désactivé",
+        none        = "Aucun",
+        all         = "Tout",
+        name        = "Nom",
+        description = "Description",
+    },
+    time = {
+        now       = "maintenant",
+        today     = "aujourd'hui",
+        yesterday = "hier",
+        tomorrow  = "demain",
+    },
+};

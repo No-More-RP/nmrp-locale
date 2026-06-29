@@ -1,0 +1,41 @@
+--- en.lua — English shared locale, registered into `Locale.SHARED`.
+--- Keep keys universal and prefixed (common.*, time.*); see locales/Index.lua.
+---@type LocaleTranslations
+return {
+    common = {
+        yes         = "Yes",
+        no          = "No",
+        ok          = "OK",
+        cancel      = "Cancel",
+        confirm     = "Confirm",
+        save        = "Save",
+        delete      = "Delete",
+        edit        = "Edit",
+        remove      = "Remove",
+        add         = "Add",
+        create      = "Create",
+        close       = "Close",
+        back        = "Back",
+        next        = "Next",
+        previous    = "Previous",
+        search      = "Search",
+        loading     = "Loading...",
+        settings    = "Settings",
+        error       = "Error",
+        success     = "Success",
+        warning     = "Warning",
+        info        = "Information",
+        enabled     = "Enabled",
+        disabled    = "Disabled",
+        none        = "None",
+        all         = "All",
+        name        = "Name",
+        description = "Description",
+    },
+    time = {
+        now       = "now",
+        today     = "today",
+        yesterday = "yesterday",
+        tomorrow  = "tomorrow",
+    },
+};
