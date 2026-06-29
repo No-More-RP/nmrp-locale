@@ -136,6 +136,16 @@ universal. To add or complete a language:
 3. Keep keys **prefixed and universal** (`common.*`, `time.*`, `unit.*`). Anything
    game/package-specific belongs in that package's own namespace, not here.
 
+> **Adding a brand-new language code?** The list of codes is duplicated in 4 places
+> that must be kept in sync (no shared source between the Lua VMs and the JS bundle):
+> - `Shared/locale.types.lua` — the `LocaleLanguage` alias (autocomplete)
+> - `Shared/locale.lua` — the `Locale.Languages` table (code → native name)
+> - `Client/web/locale.js` — the `LANGUAGES` const (code → native name)
+> - `Client/web/locale.d.ts` — the `LocaleLanguage` type
+>
+> Any ISO 639-1 code already works at runtime via `Register()` — updating these 4
+> only adds it to autocomplete and the `Locale.Languages` selector map.
+
 ## Server — translate per player (explicit language)
 
 ```lua
