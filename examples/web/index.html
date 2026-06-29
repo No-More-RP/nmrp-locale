@@ -1,0 +1,79 @@
+<!doctype html>
+<!--
+  Example (NOT loaded) — WebUI page consuming nanos-locale.
+  Copy this page AND locale.js into your own package's Client/web/ folder.
+  In game, locale.js auto-wires to the Lua bridge (it requests the store on load
+  and listens for language changes). The little "browser preview" block at the
+  bottom only runs outside the game, so you can open this file in a browser.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nanos-locale — example</title>
+    <script src="locale.js"></script>
+  </head>
+  <body>
+    <h1 id="title"></h1>
+    <p id="offer"></p>
+
+    <label>
+      <span id="lang-label"></span>
+      <select id="lang"></select>
+    </label>
+
+    <p><button id="cancel"></button></p>
+
+    <script>
+      // The "shop" namespace mirrors examples/per-script.lua on the Lua side.
+      const L = window.Locale.namespace("shop");
+
+      // Build the language selector from the supported-codes enum.
+      function buildSelector() {
+        const select = document.getElementById("lang");
+        select.innerHTML = "";
+        for (const [code, name] of Object.entries(window.Locale.languages)) {
+          const option = document.createElement("option");
+          option.value = code;
+          option.textContent = name;
+          select.appendChild(option);
+        }
+        select.value = window.Locale.getLanguage();
+        // setLanguage notifies Lua automatically (Events.Call "locale:set-language").
+        select.onchange = () => window.Locale.setLanguage(select.value);
+      }
+
+      // Re-render whenever the store loads or the language changes.
+      function render() {
+        document.getElementById("title").textContent = L.t("title");
+        document.getElementById("offer").textContent = L.t("buy", { price: 250 });
+        document.getElementById("cancel").textContent = window.Locale.t("common.cancel");
+        document.getElementById("lang-label").textContent = window.Locale.t("common.settings");
+        document.getElementById("lang").value = window.Locale.getLanguage();
+      }
+
+      window.Locale.onChange(render);
+      buildSelector();
+      render();
+
+      // --- Browser preview only (no game bridge): seed a tiny store so the page
+      // renders something. In game this block is skipped (window.Events exists).
+      if (!window.Events) {
+        window.Locale.load({
+          language: "en",
+          fallback: "en",
+          data: {
+            shop: {
+              en: { title: "General Store", buy: "Buy for {price}$" },
+              fr: { title: "Magasin général", buy: "Acheter pour {price}$" },
+            },
+            shared: {
+              en: { "common.cancel": "Cancel", "common.settings": "Settings" },
+              fr: { "common.cancel": "Annuler", "common.settings": "Paramètres" },
+            },
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
