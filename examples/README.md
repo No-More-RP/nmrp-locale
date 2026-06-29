@@ -12,6 +12,7 @@ package.
 | `client-webui.lua` | Client | Create a WebUI and bind it to the store with `Locale.Attach`. |
 | `web/index.html` | WebUI | Language selector + live translation via `locale.js`. |
 
-For the web example, copy both `web/index.html` and `Client/web/locale.js` into your
+For the web example, copy `web/index.html` and `Client/web/locale.js` into your
 package's `Client/web/` folder — a WebUI resolves `file:///` paths relative to the
-calling package's own folder.
+calling package's own folder. TypeScript users should also copy
+`Client/web/locale.d.ts` (it types the global `window.Locale`).

@@ -178,6 +178,9 @@ Locale.Attach(ui); -- pushes the store + language, follows Register/SetLanguage
 must sit next to your page: **copy `Client/web/locale.js` into your own package's
 WebUI folder** (e.g. your `Client/web/`, next to `index.html`) and load it there.
 
+> **TypeScript?** Copy `Client/web/locale.d.ts` alongside it — it types the global
+> `window.Locale` (and exports `LocaleNamespace`, `LocaleLanguage`, etc.).
+
 ```html
 <script src="locale.js"></script>
 <script>
