@@ -29,9 +29,6 @@
 ---   [Client Side] — client only; a no-op on the server.
 ---   [Server Side] — server only.
 
----@class LocaleNamespace
----@field name string Namespace name (usually the package name).
-
 ---@class Locale
 ---@field SHARED string Reserved shared namespace name ("shared").
 ---@field language LocaleLanguage Active language (client-driven).
@@ -327,7 +324,8 @@ function Locale.OnChange(callback)
     end
 end
 
----@type LocaleNamespace
+---@class LocaleNamespace
+---@field name string Namespace name (usually the package name).
 local namespace_proto = {};
 local namespace_meta <const> = { __index = namespace_proto };
 
@@ -339,17 +337,23 @@ function namespace_proto:Register(language, translations)
     Locale.Register(self.name, language, translations);
     return self;
 end
-namespace_proto.Set = namespace_proto.Register; -- alias
+
+--- [Both] Alias of `Register`.
+---@type fun(self: LocaleNamespace, language: LocaleLanguage, translations: LocaleTranslations): LocaleNamespace
+namespace_proto.Set = namespace_proto.Register;
 
 --- [Both] Translates a key within this namespace (with fallback to the shared one).
 ---@param key string
----@param params LocaleParams|nil
----@param language LocaleLanguage|nil Explicit language (server-side per-player).
+---@param params? LocaleParams
+---@param language? LocaleLanguage Explicit language (server-side per-player).
 ---@return string
 function namespace_proto:Get(key, params, language)
     return Locale.Translate(self.name, key, params, language);
 end
-namespace_proto.t = namespace_proto.Get; -- short alias
+
+--- [Both] Short alias of `Get`.
+---@type fun(self: LocaleNamespace, key: string, params?: LocaleParams, language?: LocaleLanguage): string
+namespace_proto.t = namespace_proto.Get;
 
 --- [Both] Whether a key exists in this namespace (or the shared one).
 ---@param key string
