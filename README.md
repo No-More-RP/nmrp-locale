@@ -1,4 +1,4 @@
-# Nanos Locale
+# NMRP Locale
 
 Localization (i18n) system for Nanos World, shared across all packages and usable
 **from Lua (server + client) AND from the WebUI (JS)** with the exact same
@@ -13,11 +13,11 @@ translation tables.
 
 ## Installation
 
-Add `nanos-locale` to your package `packages_requirements`:
+Add `nmrp-locale` to your package `packages_requirements`:
 
 ```toml
 [script] # or [game_mode]
-    packages_requirements = [ "nanos-locale" ]
+    packages_requirements = [ "nmrp-locale" ]
 ```
 
 The global `Locale` is then available everywhere (shared Lua state between packages).
