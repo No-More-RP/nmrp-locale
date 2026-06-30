@@ -1,9 +1,9 @@
 # vault configurations
 [meta]
     # friendly name
-    title =                 "Nanos Locale"
+    title =                 "NMRP Locale"
     # contributors
-    author =                "JustGodWork"
+    author =                "No More RP (JustGodWork)"
     # version
     version =               "1.0.0"
 
