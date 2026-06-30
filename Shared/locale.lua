@@ -37,7 +37,6 @@
 ---@field Languages table<LocaleLanguage, string> Supported codes -> native display name.
 ---@field private _store table<string, table<LocaleLanguage, table<string, string>>> Translation store: _store[namespace][language] = { ["flat.key"] = "text" }.
 ---@field private _listeners fun(language: LocaleLanguage)[] Language-change listeners.
----@field private _webuis WebUI[] Attached WebUIs (client only).
 ---@field private _namespaces table<string, LocaleNamespace> Cached namespace objects.
 Locale = Locale or {};
 
@@ -90,7 +89,6 @@ Locale._store = Locale._store or {};
 
 --- Language-change listeners (Lua) and attached WebUIs (client).
 Locale._listeners = Locale._listeners or {};
-Locale._webuis = Locale._webuis or {};
 Locale._namespaces = Locale._namespaces or {};
 
 local type <const> = type;
@@ -101,6 +99,9 @@ local setmetatable <const> = setmetatable;
 local table_remove <const> = table.remove;
 local string_gsub <const> = string.gsub;
 local string_match <const> = string.match;
+
+--- Attached WebUIs (client only).
+local _webuis <const> = {}; ---@type WebUI[]
 
 --- Flattens a nested translation table into dotted keys.
 --- `{ menu = { title = "Hi" } }` -> `{ ["menu.title"] = "Hi" }`.
@@ -211,7 +212,7 @@ end
 --- Re-syncs every attached WebUI (after a Register or SetLanguage).
 local function sync_webuis()
     if (not Client) then return; end
-    local webuis <const> = Locale._webuis;
+    local webuis <const> = _webuis;
     for i = 1, #webuis do
         push_full(webuis[i]);
     end
@@ -285,7 +286,7 @@ function Locale.SetLanguage(language)
     end
 
     if (Client) then
-        local webuis <const> = Locale._webuis;
+        local webuis <const> = _webuis;
         for i = 1, #webuis do
             webuis[i]:CallEvent("locale:language", language);
         end
@@ -390,7 +391,7 @@ Locale.Shared = Locale.Namespace(Locale.SHARED);
 function Locale.Attach(webui)
     if (not Client) then return webui; end
 
-    Locale._webuis[#Locale._webuis + 1] = webui;
+    _webuis[#_webuis + 1] = webui;
     webui:Subscribe("locale:request", function() push_full(webui); end);
     -- The UI may also drive the language from JS (language selector).
     webui:Subscribe("locale:set-language", function(language) Locale.SetLanguage(language); end);
@@ -402,7 +403,7 @@ end
 ---@param webui WebUI
 ---@return Locale
 function Locale.Detach(webui)
-    local webuis <const> = Locale._webuis;
+    local webuis <const> = _webuis;
     for i = #webuis, 1, -1 do
         if (webuis[i] == webui) then
             table_remove(webuis, i);
