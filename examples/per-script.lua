@@ -1,6 +1,6 @@
 --- Example (NOT loaded) — per-script locales for a hypothetical "shop" package.
 --- Drop something like this in your OWN package's Shared/ and require it; it relies
---- on the global `Locale` provided by nanos-locale.
+--- on the global `Locale` provided by nmrp-locale.
 
 local L <const> = Locale.Namespace("shop"); ---@type LocaleNamespace
 

@@ -1,6 +1,6 @@
 # Examples (not loaded)
 
-Reference snippets showing how to **consume** nanos-locale. They live at the package
+Reference snippets showing how to **consume** nmrp-locale. They live at the package
 root, **outside the require chain and outside `Client/`/`Shared/`**, so nanos never
 loads them and never ships them to clients. Copy the relevant bits into your own
 package.
